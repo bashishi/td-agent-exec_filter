@@ -6,8 +6,6 @@ require 'msgpack'
 require 'uri'
 require 'date'
 
-str = "{\"path\":\"http://example.com/abc?param1=xxx\"}"
-
 while str = STDIN.gets
     str.chomp!
     begin
@@ -28,7 +26,7 @@ while str = STDIN.gets
             end
         end
     rescue => ex
-        s = str 
+        s = str
     end
     print MessagePack.pack(s)
     STDOUT.flush
