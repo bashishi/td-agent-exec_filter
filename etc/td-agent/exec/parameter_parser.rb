@@ -15,24 +15,27 @@ while str = STDIN.gets
             unless s[key].nil?
                 uri = URI(s[key])
                 query = uri.query
-                unless query.empty?
-                    q = query.split("&")
-                    q.each do |param|
-                        p = param.split("=")
-                        k = key + "." + p[0].to_s
-                        if p.length > 1 then
-                          s[k] = p[1]
-                        else
-                          s[k] = ""
+                unless query.nil?
+                    unless query.empty?
+                        q = query.split("&")
+                        q.each do |param|
+                            p = param.split("=")
+                            k = key + "." + p[0].to_s
+
+                            if p.length > 1 then
+                              s[k] = p[1]
+                            else
+                              s[k] = ""
+                            end
                         end
                     end
                 end
             end
         end
+        print MessagePack.pack(s)
     rescue => ex
-        s = str
+        print MessagePack.pack(str)
     end
-    print MessagePack.pack(s)
     STDOUT.flush
 end
 
